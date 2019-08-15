@@ -1,0 +1,14 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
+SELECT @str := CONCAT('TRUNCATE TABLE ', table_schema, '.', table_name, ';')
+FROM   information_schema.tables
+WHERE  table_type   = 'BASE TABLE'
+  AND  table_schema IN ('truncateëŒè€DB');
+
+PREPARE stmt FROM @str;
+
+EXECUTE stmt;
+
+DEALLOCATE PREPARE stmt;
+
+SET FOREIGN_KEY_CHECKS = 1;
